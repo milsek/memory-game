@@ -30,6 +30,13 @@ const shuffle = () => {
   console.log('turns: ', turns);
 }
 
+const nextTurn = () => {
+  turns++;
+  firstChoice = {};
+  secondChoice = {};
+  clickEnabled = true;
+}
+
 const evaluateChoices = () => {
   if (firstChoice.src === secondChoice.src) {
     console.log("SUCCESS")
@@ -42,9 +49,7 @@ const evaluateChoices = () => {
     // console.log('F', firstChoice, 'S', secondChoice)
     // console.log('cARDS:', cards)
   }
-  firstChoice = {};
-  secondChoice = {};
-  clickEnabled = true;
+  nextTurn();
 }
 
 const handleChoice = (id) => {
@@ -58,7 +63,7 @@ const handleChoice = (id) => {
       secondChoice = cards.find(item => item.id == id);
       secondChoice.show = true;
       clickEnabled = false;
-      setTimeout(() => evaluateChoices(), 1500);
+      setTimeout(() => evaluateChoices(), 1000);
     }
   }
 }
@@ -67,17 +72,23 @@ const renderHTML = () => {
   let html = ''
   cards.forEach((card) => {
     html += `
-    <div id="${card.id}" class="card w-36 cursor-pointer mx-auto">\n
-      <img src="${card.src}" class="face w-36 h-full border-4 border-solid border-red-900">\n
+    <div id="${card.id}" class="card  cursor-pointer mx-auto transform hover:scale-105">\n
+      <img src="${card.src}" class="face h-full">\n
       <img src="./assets/back.png" card="${card.id}" onclick="handleChoice(this.getAttribute(\'card\'))"
-      class="back w-36 border border-solid border-red-900">\n
+      class="back border-2 border-solid border-red-900">\n
     </div>`;
   })
   document.getElementById('card-grid').innerHTML = html;
 }
 
 const startNewGame = () => {
-  shuffle()
-  renderHTML()
+  shuffle();
+  renderHTML();
+  nextTurn();
+  setTimeout(() => {
+    document.getElementById("foot").classList.remove('fixed');
+  },  100);
+  
 }
 
+window.onload = startNewGame;

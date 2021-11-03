@@ -5,7 +5,7 @@ html, body {
   padding: 0;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
-#command {
+#head, #info {
   background-color: #b61515;
 }
 
@@ -14,12 +14,25 @@ html, body {
 }
 
 .card .face {
-  position: absolute;
   transform: rotateY(90deg);
+  transition: all ease-in 0.3s;
+  position: absolute;
 }
 
 .flipped .face {
   transform: rotateY(0deg);
+  transition-delay: 0.15s;
+}
+
+.card .back {
+  transition: all ease-in 0.3s;
+  transition-delay: 0.15s;
+}
+
+.flipped .back {
+  transform: rotateY(90deg);
+  transition-delay: 0s;
+  opacity: 0;
 }
 
 img, .card {
