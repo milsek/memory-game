@@ -13,8 +13,12 @@
   <body class="bg-black">
     <div id="head" class="block w-full text-center pt-10 text-black">
       <h1 class="text-6xl font-serif font-extrabold">memory game</h1>
-      <button id="new-game" onclick="startNewGame()" class="mt-4 text-2xl font-serif px-6 py-2 border-2 border-black border-solid
+      <button id="new-game" onclick="startNewGame()" class="mt-6 text-2xl font-serif px-6 py-2 border-2 border-black border-solid
       transform hover:scale-105">new game</button>
+      <div class="block w-full font-thin text-xl text-center justify-center mx-auto mt-4">
+        <p class="py-1 w-32 border-b border-black border-solid mx-auto">turns - <span id="turns">0</span></p>
+        <p class="w-32 mx-auto">time - <span id="timer">0:00</span></p>
+      </div>
       <img src="./assets/waves2.svg" class="w-full">
     </div>
     <div id="card-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 xl:grid-cols-8
@@ -26,7 +30,7 @@
     <img src="./assets/footerwave.svg" class="w-full">
     <div id="info" class="h-36 pt-4">
       <p class="text-3xl font-thin">made by <a target="_blank" href="https://www.linkedin.com/in/milan-sekulic/">milsek</a></p>
-      <p class="text-xl font-thin">art by @micah_ulrich</p>
+      <p class="text-xl font-thin">art by <a target="_blank" href="https://www.instagram.com/micah_ulrich/">@micah_ulrich</a></p>
     </div>
   </footer>
 </html>

@@ -1,4 +1,3 @@
-
 const images = [
   {'src': './assets/0.png'},
   {'src': './assets/1.png'},
@@ -30,25 +29,33 @@ const shuffle = () => {
   console.log('turns: ', turns);
 }
 
+const checkFinished = () => {
+  if (cards.every(card => card.show)) {
+    console.log("WINNER WINNER");
+    pauseTimer();
+  }
+}
+
+const updateTurns = () => {
+  document.getElementById('turns').innerHTML = turns;
+}
+
 const nextTurn = () => {
-  turns++;
   firstChoice = {};
   secondChoice = {};
   clickEnabled = true;
+  updateTurns();
 }
 
-const evaluateChoices = () => {
-  if (firstChoice.src === secondChoice.src) {
-    console.log("SUCCESS")
-  } else {
-    console.log("FAIL")
+const evaluate = () => {
+  if (firstChoice.src !== secondChoice.src) {
     cards.filter((item) => {return item.id == firstChoice.id || item.id == secondChoice.id})
     .forEach((item) => {item.show = false});
     document.getElementById(firstChoice.id).classList.remove('flipped');
     document.getElementById(secondChoice.id).classList.remove('flipped');
-    // console.log('F', firstChoice, 'S', secondChoice)
-    // console.log('cARDS:', cards)
   }
+  turns++;
+  checkFinished();
   nextTurn();
 }
 
@@ -59,11 +66,10 @@ const handleChoice = (id) => {
       firstChoice = cards.find(item => item.id == id);
       firstChoice.show = true;
     } else {
-      // cards.find(item => item.id == id).show = true;
       secondChoice = cards.find(item => item.id == id);
       secondChoice.show = true;
       clickEnabled = false;
-      setTimeout(() => evaluateChoices(), 1000);
+      setTimeout(() => evaluate(), 1000);
     }
   }
 }
@@ -82,13 +88,61 @@ const renderHTML = () => {
 }
 
 const startNewGame = () => {
+  resetTimer();
   shuffle();
   renderHTML();
   nextTurn();
+  startTimer();
   setTimeout(() => {
     document.getElementById("foot").classList.remove('fixed');
   },  100);
   
+}
+
+
+// -- TIMER --
+
+
+function timeToString(time) {
+  let diffInHrs = time / 3600000;
+
+  let diffInMin = diffInHrs * 60;
+  let mm = Math.floor(diffInMin);
+
+  let diffInSec = (diffInMin - mm) * 60;
+  let ss = Math.floor(diffInSec);
+
+  let formattedMM = mm.toString().padStart(2, "0");
+  let formattedSS = ss.toString().padStart(2, "0");
+
+  // return `${formattedMM}:${formattedSS}:${formattedMS}`;
+  return `${formattedMM}:${formattedSS}`;
+}
+
+let startTime;
+let elapsedTime = 0;
+let timerInterval;
+
+function print(txt) {
+  document.getElementById("timer").innerHTML = txt;
+}
+
+function startTimer() {
+  startTime = Date.now() - elapsedTime;
+  timerInterval = setInterval(function printTime() {
+    elapsedTime = Date.now() - startTime;
+    print(timeToString(elapsedTime));
+  }, 10);
+}
+
+function pauseTimer() {
+  clearInterval(timerInterval);
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  print("00:00");
+  elapsedTime = 0;
 }
 
 window.onload = startNewGame;
