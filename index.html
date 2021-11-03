@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="index.js"></script>
+    <title>memory game</title>
+  </head>
+  <body class="bg-black">
+    <div id="command" class="block w-full text-center pt-10 text-black">
+      <h1 class="text-6xl font-serif font-extrabold">memory game</h1>
+      <button id="new-game" onclick="startNewGame()" class="mt-4 text-2xl font-serif px-6 py-2 border-2 border-black border-solid
+      transform hover:scale-105">new game</button>
+      <img src="./assets/waves2.svg" class="w-full">
+    </div>
+    <div id="card-grid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8
+    w-full mx-auto justify-center align-middle pt-14 pb-16 px-10 gap-x-4 gap-y-4">
+
+    </div>
+  </body>
+</html>

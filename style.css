@@ -1,0 +1,42 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+#command {
+  background-color: #b61515;
+}
+
+.card {
+  position: relative;
+}
+
+.card .face {
+  position: absolute;
+  transform: rotateY(90deg);
+}
+
+.flipped .face {
+  transform: rotateY(0deg);
+}
+
+img, .card {
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-y: scroll; 
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
