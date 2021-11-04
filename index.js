@@ -1,3 +1,4 @@
+
 const images = [
   {'src': './assets/0.png'},
   {'src': './assets/1.png'},
@@ -13,27 +14,71 @@ const images = [
   {'src': './assets/11.png'},
 ];
 
+ const difficultyCols = {
+  12: ['grid-cols-4', 'md:grid-cols-6', 'xl:grid-cols-8'],
+  10: ['grid-cols-4', 'md:grid-cols-5', 'xl:grid-cols-10'],
+  9: ['grid-cols-3', 'md:grid-cols-6', 'xl:grid-cols-9'],
+  8: ['grid-cols-4', 'lg:grid-cols-8'],
+  6: ['grid-cols-4', 'lg:grid-cols-6'],
+  5: ['grid-cols-2', 'sm:grid-cols-5'],
+  4: ['grid-cols-4', 'lg:grid-cols-8'],
+}
+
 let cards = [];
 let turns = 0;
+let difficulty = 12;
 let firstChoice = {};
 let secondChoice = {};
 let clickEnabled = true;
 
 const shuffle = () => {
-  const shuffledCards = [...images, ...images]
+  cards = [...images.slice(0, difficulty), ...images.slice(0, difficulty)]
     .sort(() => Math.random() - 0.5)
     .map((item) => ({ ...item, id: Math.random(), show: false}));
-  cards = shuffledCards;
-  turns = 0;
-  console.log(cards);
-  console.log('turns: ', turns);
+}
+
+const increaseDifficulty = () => {
+  difficulty < 12 ? difficulty++ : difficulty += 0;
+  [7, 11].includes(difficulty) ? difficulty++ : difficulty += 0;
+  renderDifficulty();
+}
+
+const decreaseDifficulty = () => {
+  difficulty > 4 ? difficulty-- : difficulty += 0;
+  [7, 11].includes(difficulty) ? difficulty-- : difficulty += 0;
+  renderDifficulty();
+}
+
+const renderDifficulty = () => {
+  document.getElementById("difficulty").innerHTML = difficulty;
+}
+
+const moveFooter = () => {
+  setTimeout(() => {
+    document.getElementById("foot").classList.remove('fixed');
+  },  100);
+}
+
+const hideModal = () => {
+  document.getElementById('modal').classList.add('hidden');
+}
+
+const renderModal = () => {
+  document.getElementById('winner-turns').innerHTML = turns;
+  document.getElementById('winner-time').innerHTML = timeToString(elapsedTime);
+  document.getElementById('modal').classList.remove('hidden');
 }
 
 const checkFinished = () => {
   if (cards.every(card => card.show)) {
     console.log("WINNER WINNER");
     pauseTimer();
+    renderModal();
   }
+}
+
+const resetTurns = () => {
+  turns = 0;
 }
 
 const updateTurns = () => {
@@ -74,30 +119,53 @@ const handleChoice = (id) => {
   }
 }
 
+const setGridCols = () => {
+  document.getElementById('card-grid').getAttribute('class').split(' ').forEach(c => {
+    if (c.includes('-cols')) {
+      document.getElementById('card-grid').classList.remove(c);
+    }
+  })
+  difficultyCols[difficulty].forEach(c => {
+    document.getElementById('card-grid').classList.add(c);
+  })
+
+}
+
 const renderHTML = () => {
   let html = ''
   cards.forEach((card) => {
     html += `
-    <div id="${card.id}" class="card  cursor-pointer mx-auto transform hover:scale-105">\n
-      <img src="${card.src}" class="face h-full">\n
+    <div id="${card.id}" class="card cursor-pointer mx-auto transform hover:scale-105">\n
+      <img src="${card.src}" class="face rounded-md h-full">\n
       <img src="./assets/back.png" card="${card.id}" onclick="handleChoice(this.getAttribute(\'card\'))"
-      class="back border-2 border-solid border-red-900">\n
+      class="back border-2 border-solid rounded-md border-red-900">\n
     </div>`;
   })
   document.getElementById('card-grid').innerHTML = html;
 }
 
 const startNewGame = () => {
+  hideModal();
   resetTimer();
+  resetTurns();
   shuffle();
+  setGridCols();
   renderHTML();
   nextTurn();
   startTimer();
-  setTimeout(() => {
-    document.getElementById("foot").classList.remove('fixed');
-  },  100);
-  
+  moveFooter();
+  setModalHeight();
 }
+
+const setModalHeight = () => {
+  setTimeout(() => {
+    document.getElementById('modal').style.height = document.body.scrollHeight + "px";
+  }, 250);
+}
+
+window.addEventListener('resize', function(event) {
+  setModalHeight();
+}, true);
 
 
 // -- TIMER --
