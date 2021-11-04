@@ -1,3 +1,10 @@
 # simple memory game in html+css+js
 
-Intended for the purpose of participating in a [competition](https://www.instagram.com/p/CVzwj9qtC_s/).
+Created in order to participate in [this competition](https://www.instagram.com/p/CVzwj9qtC_s/) by [@dresscode.ing](https://www.instagram.com/dresscode.ing/).
+
+Not intended for commercial use. Artwork belongs to [@micah_ulrich](https://www.instagram.com/micah_ulrich/).
+
+##
+
+### -> run by simply opening _index.html_ in your browser
+ ++ created using Google Chrome (Version 95.0.4638.69), not tested in other browsers & versions.
