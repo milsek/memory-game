@@ -65,7 +65,6 @@ const renderModal = () => {
 
 const checkFinished = () => {
   if (cards.every(card => card.show)) {
-    console.log("WINNER WINNER");
     pauseTimer();
     renderModal();
   }
@@ -125,12 +124,6 @@ const setGridCols = () => {
 
 }
 
-const moveFooter = () => {
-  setTimeout(() => {
-    document.getElementById("foot").classList.remove('fixed');
-  },  50);
-}
-
 const renderHTML = () => {
   let html = ''
   cards.forEach((card) => {
@@ -153,7 +146,6 @@ const startNewGame = () => {
   renderHTML();
   nextTurn();
   startTimer();
-  moveFooter();
   setModalHeight();
 }
 

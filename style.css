@@ -6,9 +6,6 @@ html, body {
   font-family: Georgia, 'Times New Roman', Times, serif;
   background-color: #b61515;
 }
-#head, #info {
-  background-color: #b61515;
-}
 
 .card {
   position: relative;
