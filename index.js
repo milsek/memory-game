@@ -20,7 +20,7 @@ const images = [
   9: ['grid-cols-3', 'md:grid-cols-6', 'xl:grid-cols-9'],
   8: ['grid-cols-4', 'lg:grid-cols-8'],
   6: ['grid-cols-4', 'lg:grid-cols-6'],
-  5: ['grid-cols-2', 'sm:grid-cols-5'],
+  5: ['grid-cols-2', 'sm:grid-cols-5', "lg:grid-cols-10"],
   4: ['grid-cols-4', 'lg:grid-cols-8'],
 }
 
@@ -51,12 +51,6 @@ const decreaseDifficulty = () => {
 
 const renderDifficulty = () => {
   document.getElementById("difficulty").innerHTML = difficulty;
-}
-
-const moveFooter = () => {
-  setTimeout(() => {
-    document.getElementById("foot").classList.remove('fixed');
-  },  100);
 }
 
 const hideModal = () => {
@@ -111,9 +105,9 @@ const handleChoice = (id) => {
       firstChoice = cards.find(item => item.id == id);
       firstChoice.show = true;
     } else {
+      clickEnabled = false;
       secondChoice = cards.find(item => item.id == id);
       secondChoice.show = true;
-      clickEnabled = false;
       setTimeout(() => evaluate(), 1000);
     }
   }
@@ -129,6 +123,12 @@ const setGridCols = () => {
     document.getElementById('card-grid').classList.add(c);
   })
 
+}
+
+const moveFooter = () => {
+  setTimeout(() => {
+    document.getElementById("foot").classList.remove('fixed');
+  },  50);
 }
 
 const renderHTML = () => {
@@ -183,7 +183,6 @@ function timeToString(time) {
   let formattedMM = mm.toString().padStart(2, "0");
   let formattedSS = ss.toString().padStart(2, "0");
 
-  // return `${formattedMM}:${formattedSS}:${formattedMS}`;
   return `${formattedMM}:${formattedSS}`;
 }
 
